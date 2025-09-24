@@ -1,0 +1,18 @@
+site_name: ADARTEM Docs
+site_url: https://adartem.github.io/adartem-docs/
+theme:
+  name: material
+
+nav:
+  - Home: index.md
+  - Guide:
+      - Introduction: guide/introduction.md
+      - Installation: guide/installation.md
+      - Usage: guide/usage.md
+
+markdown_extensions:
+  - admonition
+  - codehilite
+  - footnotes
+  - toc:
+      permalink: true
