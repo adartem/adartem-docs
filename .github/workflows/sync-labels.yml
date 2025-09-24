@@ -17,4 +17,4 @@ jobs:
         uses: crazy-max/ghaction-github-labeler@v5
         with:
           github-token: ${{ secrets.ORG_PAT }}
-          config-file: ops/.github/labels.yml
+          yaml-file: ops/.github/labels.yml
