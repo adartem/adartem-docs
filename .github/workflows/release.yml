@@ -1,26 +1,19 @@
-name: Docs Deploy
+name: Release Docs
+
 on:
   push:
-    branches:
-      - main
+    branches: [main]
+  workflow_dispatch:
 
 jobs:
-  build-docs:
+  release:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-
-      - name: Setup Python
-        uses: actions/setup-python@v5
+      - uses: actions/download-artifact@v3
         with:
-          python-version: '3.x'
-
-      - run: pip install mkdocs-material
-      - run: mkdocs build
-
-      - name: Deploy Docs
-        uses: peaceiris/actions-gh-pages@v3
+          name: docs-build
+          path: build
+      - uses: peaceiris/actions-gh-pages@v6
         with:
-          github_token: ${{ secrets.ORG_PAT }}
-          publish_dir: ./site
-          
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: build
