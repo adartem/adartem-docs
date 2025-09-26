@@ -9,17 +9,32 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
           node-version: 18
+          cache: 'npm'
 
       - name: Install dependencies
         run: npm ci
 
+      - name: Lint
+        run: npm run lint
+
+      - name: Format check
+        run: npm run format:check
+
+      - name: Run tests
+        run: npm run test
+
       - name: Build documentation
         run: npm run build
+
+      - name: Verify build output
+        run: ls -R build || (echo "❌ Docs build failed" && exit 1)
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v4
